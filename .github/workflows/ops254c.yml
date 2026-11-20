@@ -1,0 +1,19 @@
+name: ops254c
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        job: [1,2,3,4,5,6,7,8]
+    steps:
+      - uses: actions/checkout@v4
+      - name: probe
+        env:
+          JOB: ${{ matrix.job }}
+          TOPIC: iops254-7c1e
+        run: python3 probe3.py
